@@ -6,6 +6,7 @@ wines distribution using a subset data
 
 import sys
 import datetime
+import os
 
 import pandas as pd
 import numpy as np
@@ -51,8 +52,13 @@ def plot_distribution(wine):
     ax.set_xlabel('Points');
 
     fname = f'figures/fig01_distribution-wine-scores.png'
-
-    fig.savefig(fname, bbox_inches = 'tight')
+    
+    try:
+        fig.savefig(fname, bbox_inches = 'tight')
+    except OSError as e:
+        os.makedirs('figures')
+        print('Creating figures directory')
+        fig.savefig(fname, bbox_inches = 'tight')
     return (fname)
 
 
